@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/drawer"
 import DesktopRadioApp from "./components/DesktopRadioApp"
 import CompactPlayer from "./components/CompactPlayer"
-import { useIsMobile } from "./hooks/UseIsMobile"
+import { useIsMobile } from "./hooks/useIsMobile"
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { ScrollArea } from "@/components/ui/scroll-area"
