@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { MessageCircle, Play, Phone, Pause, Volume2, VolumeX, Heart, ExternalLink, Loader2, Send } from "lucide-react"
+import { MessageCircle, Play, Phone, Pause, Volume2, VolumeX, Heart, ExternalLink, Loader2, Send, CopyIcon, CheckIcon } from "lucide-react"
 import {
   Drawer,
   DrawerTrigger,
@@ -34,6 +34,8 @@ const App = () => {
   const [isLoadingAudio, setIsLoadingAudio] = useState(false)
   const [audioError, setAudioError] = useState(null)
   const isMobile = useIsMobile()
+
+  const [copied, setCopied] = useState(false)
 
   // Comment states
   const [commentText, setCommentText] = useState("")
@@ -175,6 +177,9 @@ const App = () => {
       setIsLoadingAudio(false)
     }
 
+
+   
+
     return () => {
       audio.removeEventListener("canplaythrough", handleCanPlayThrough)
       audio.removeEventListener("waiting", handleWaiting)
@@ -263,13 +268,20 @@ const App = () => {
     return <DesktopRadioApp {...playerProps} />
   }
 
+
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText("1002231384")
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000) // reset after 2s
+  }
   // Mobile version (original design)
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       <div className="relative flex flex-col min-h-screen bg-gradient-to-br from-slate-400 via-white to-violet-200/30 dark:from-slate-900 dark:via-slate-800 dark:to-violet-900/10 overflow-hidden">
         {/* Audio Element */}
         <audio ref={audioRef} preload="auto">
-          <source src="https://radio.ifastekpanel.com:1115/stream" type="audio/mpeg" />
+          <source src="https://radio.ifastekpanel.com:1765/stream" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
 
@@ -299,8 +311,8 @@ const App = () => {
                   <img src="/images/loveworld-logo.png" className="w-6 h-6 z-50 rounded-full" alt="logo" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold">Online Radio Church</h2>
-                  <p className="text-sm text-muted-foreground">Broadcasting now</p>
+                  <h2 className="text-lg font-semibold">Christ Embassy Kaduna</h2>
+                  <p className="text-sm text-muted-foreground">Online Radio Church</p>
                 </div>
               </div>
               {/* ThemeToggle */}
@@ -318,11 +330,11 @@ const App = () => {
           {/* Logo Container */}
           <div className="relative mb-6">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent rounded-full blur-2xl dark:blur-2xl animate-pulse dark:animate-none" />
-            <div className="relative w-46 h-46 flex justify-center items-center bg-gradient-to-br from-card to-card/50 rounded-full p-4 shadow-2xl border-8 border-border/50 dark:border-gray-800 backdrop-blur-sm">
+            <div className="relative w-60 h-60 flex justify-center items-center bg-gradient-to-br from-card to-card/50 rounded-full p-4 shadow-2xl border-8 border-border/50 dark:border-gray-800 backdrop-blur-sm">
               <img
                 src="/images/logo.png"
                 alt="Christ Embassy Logo"
-                className="w-32 h-32 object-contain"
+                className="w-54 h-54 object-contain"
               />
             </div>
           </div>
@@ -330,14 +342,14 @@ const App = () => {
           {/* Church Info */}
           <div className="mb-8 max-w-md">
             <h1 className="text-2xl font-bold mb-2 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-              Christ Embassy Nigeria
+              Online Radio Church
             </h1>
-            <p className="text-lg text-muted-foreground mb-4">South South Zone 1</p>
+            <p className="text-lg text-muted-foreground mb-4">Christ Embassy Nigeria North West Zone 1</p>
             {/* Live Status */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-green-600 text-white px-3 py-1 rounded-full text-xs shadow-lg">
+            {/* <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-green-600 text-white px-3 py-1 rounded-full text-xs shadow-lg">
               <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
               Live Now
-            </div>
+            </div> */}
           </div>
 
           {/* Main Play Controls - Conditionally rendered with animation */}
@@ -418,7 +430,7 @@ const App = () => {
                 </DrawerHeader>
                 <div className="p-6 space-y-4 flex-1 flex flex-col overflow-hidden">
                   {/* Comment Form */}
-                  <form onSubmit={handleSubmitComment} className="space-y-4 mb-6 p-4 bg-muted/30 rounded-lg">
+                  {/* <form onSubmit={handleSubmitComment} className="space-y-4 mb-6 p-4 bg-muted/30 rounded-lg">
                     <div className="space-y-2">
                       <Textarea
                         placeholder="Share your thoughts, prayer requests, or testimonies..."
@@ -436,9 +448,9 @@ const App = () => {
                       {isPostingComment ? "Posting..." : "Post Comment"}
                     </Button>
                     {commentPostError && <p className="text-red-500 text-sm mt-2">{commentPostError}</p>}
-                  </form>
+                  </form> */}
                   {/* Comments List */}
-                  <ScrollArea className="flex-1">
+                  {/* <ScrollArea className="flex-1">
                     <div className="space-y-4 pr-4">
                       {comments.map((comment) => (
                         <motion.div
@@ -460,7 +472,8 @@ const App = () => {
                         </motion.div>
                       ))}
                     </div>
-                  </ScrollArea>
+                  </ScrollArea> */}
+                  Coming Soon!
                 </div>
                 <DrawerFooter>{/* You can add more actions here if needed */}</DrawerFooter>
               </DrawerContent>
@@ -499,8 +512,8 @@ const App = () => {
                 <div className="p-6 space-y-4 flex-1 overflow-auto">
                   <div className="bg-muted/50 rounded-lg p-4 text-center">
                     <p className="text-lg font-semibold mb-2">{"Click here to call us:"}</p>
-                    <a href="tel:+2347042066472" className="text-primary text-2xl font-bold hover:underline">
-                      +2347042066472
+                    <a href="tel:+2347039918548" className="text-primary text-2xl font-bold hover:underline">
+                      +234 7039 918 548
                     </a>
                   </div>
                 </div>
@@ -509,7 +522,7 @@ const App = () => {
                     asChild
                     className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
                   >
-                    <a href="tel:+2347042066472">
+                    <a href="tel:+2347039918548">
                       <Phone className="w-4 h-4 mr-2" />
                       Call Now
                     </a>
@@ -554,10 +567,10 @@ const App = () => {
                     <h3 className="font-semibold mb-2">Sunday Service</h3>
                     <p className="text-sm text-muted-foreground">Every Sunday 7am to 8am (WAT)</p>
                   </div>
-                  <div className="bg-muted/80 dark:bg-gray-800 rounded-lg p-4">
+                  {/* <div className="bg-muted/80 dark:bg-gray-800 rounded-lg p-4">
                     <h3 className="font-semibold mb-2">Mid-Week Service</h3>
                     <p className="text-sm text-muted-foreground">Every Wednesday 6pm to 7pm (WAT)</p>
-                  </div>
+                  </div> */}
                 </div>
               </DrawerContent>
             </Drawer>
@@ -585,19 +598,35 @@ const App = () => {
                   )}
                 </AnimatePresence>
                 <DrawerHeader className="text-center">
-                  <DrawerTitle className="text-xl font-bold">Support Our Ministry</DrawerTitle>
-                  <DrawerDescription>Your generosity helps us spread God's love</DrawerDescription>
+                  <DrawerTitle className="text-xl font-bold">To give your offering:</DrawerTitle>
+                  <DrawerDescription>Kindly use the details</DrawerDescription>
                 </DrawerHeader>
                 <div className="p-6 space-y-4 flex-1 overflow-auto">
-                  <div className="text-center">
-                    {/* <p className="text-muted-foreground mb-4">{"To Give, Kindly text the word GIVE to +2347042066472"}</p> */}
-                    <p className="text-lg font-medium">
-                      To Give, Kindly text the word <span className="font-bold text-primary">GIVE</span> to{" "}
-                      <a href="tel:+2347042066472" className="font-bold text-primary hover:underline">
-                        +2347042066472
-                      </a>
-                    </p>
-                    <p className="text-sm text-muted-foreground mt-4">- Luke 6:38</p>
+                   <div className="text-center space-y-2 text-lg md:text-2xl">
+                    <div>
+                      <span className="text-primary font-medium">Account Name:</span><br />
+                      Christ Embassy Conventions and Conferences Nigeria North West Zone 1A
+                    </div>
+
+                    <div className="flex items-center justify-center gap-2">
+                      <div>
+                        <span className="text-primary font-medium">Account Number:</span><br />
+                        <span className="font-bold">1002231384</span>
+                      </div>
+
+                      <Button variant="ghost" size="icon" onClick={handleCopy}>
+                        {copied ? <CheckIcon className="w-4 h-4 text-green-500" /> : <CopyIcon className="w-4 h-4" />}
+                      </Button>
+
+                      {copied && (
+                        <span className="text-xs text-muted-foreground">Copied</span>
+                      )}
+                    </div>
+
+                    <div>
+                      <span className="text-primary font-medium">Bank:</span><br />
+                      Spectrum Bank
+                    </div>
                   </div>
                 </div>
               </DrawerContent>
@@ -630,7 +659,7 @@ const App = () => {
                   {/* <DrawerDescription>Access important resources</DrawerDescription> */}
                 </DrawerHeader>
                 <div className="p-6 space-y-3 flex-1 overflow-auto">
-                  {[
+                  {/* {[
                     "Join the Impact Bayelsa Online Prayer Rally",
                     "Join the Pastor Chris Live Prayer Network",
                     "Rhapsody of Realities (Read and Earn)",
@@ -648,7 +677,8 @@ const App = () => {
                       <span className="font-medium">{link}</span>
                       <ExternalLink className="w-4 h-4 text-muted-foreground" />
                     </a>
-                  ))}
+                  ))} */}
+                  No links available yet.
                 </div>
               </DrawerContent>
             </Drawer>
